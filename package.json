@@ -21,6 +21,7 @@
     "url": "https://github.com/sparksuite/simplemde-markdown-editor/issues"
   },
   "dependencies": {
+    "cm-searchbox": "https://github.com/phodal-archive/cm-searchbox",
     "codemirror": "*",
     "codemirror-spell-checker": "*",
     "marked": "*"
