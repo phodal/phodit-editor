@@ -1623,18 +1623,18 @@ SimpleMDE.prototype.autosave = function() {
 			var d = new Date();
 			var hh = d.getHours();
 			var m = d.getMinutes();
-			var dd = "am";
+			var dd = "上午";
 			var h = hh;
 			if(h >= 12) {
 				h = hh - 12;
-				dd = "pm";
+				dd = "下午";
 			}
 			if(h == 0) {
 				h = 12;
 			}
 			m = m < 10 ? "0" + m : m;
 
-			el.innerHTML = "Autosaved: " + h + ":" + m + " " + dd;
+			el.innerHTML = "自动保存时间: " + h + ":" + m + " " + dd;
 		}
 
 		this.autosaveTimeoutId = setTimeout(function() {
