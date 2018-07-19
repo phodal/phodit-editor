@@ -17028,6 +17028,15 @@ function undo(editor) {
 
 
 /**
+ * openGuide
+ */
+function openGuide() {
+	var event = new CustomEvent("phodit.editor.open.guide", {});
+	window.document.dispatchEvent(event);
+}
+
+
+/**
  * Redo action.
  */
 function redo(editor) {
@@ -17603,7 +17612,7 @@ var toolbarBuiltInButtons = {
 	},
 	"guide": {
 		name: "guide",
-		action: "https://simplemde.com/markdown-guide",
+		action: openGuide,
 		className: "fa fa-question-circle",
 		title: "Markdown Guide",
 		default: true
