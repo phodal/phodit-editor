@@ -189,7 +189,8 @@ function toggleFullScreen(editor) {
 	// Set fullscreen
 	var cm = editor.codemirror;
 	cm.setOption("fullScreen", !cm.getOption("fullScreen"));
-
+	var event = new CustomEvent("phodit.editor.fullscreen", {});
+	window.document.dispatchEvent(event);
 
 	// Prevent scrolling on body during fullscreen active
 	if(cm.getOption("fullScreen")) {
