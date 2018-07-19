@@ -1,5 +1,6 @@
 {
   "rules": {
+    "no-useless-escape": "off",
     "indent": [
       2,
       "tab"
