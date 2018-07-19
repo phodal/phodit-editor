@@ -211,7 +211,7 @@ function toggleFullScreen(editor) {
 
 
 	// Update toolbar button
-	if (editor.toolbarElements.fullscreen) {
+	if(editor.toolbarElements.fullscreen) {
 		var toolbarButton = editor.toolbarElements.fullscreen;
 
 		if(!/active/.test(toolbarButton.className)) {
