@@ -16539,14 +16539,16 @@ function toggleFullScreen(editor) {
 	// Set fullscreen
 	var cm = editor.codemirror;
 	cm.setOption("fullScreen", !cm.getOption("fullScreen"));
-	var event = new CustomEvent("phodit.editor.fullscreen", {});
-	window.document.dispatchEvent(event);
 
 	// Prevent scrolling on body during fullscreen active
 	if(cm.getOption("fullScreen")) {
 		saved_overflow = document.body.style.overflow;
 		document.body.style.overflow = "hidden";
+		var event1 = new CustomEvent("phodit.editor.fullscreen", {});
+		window.document.dispatchEvent(event1);
 	} else {
+		var event2 = new CustomEvent("phodit.editor.unfullscreen", {});
+		window.document.dispatchEvent(event2);
 		document.body.style.overflow = saved_overflow;
 	}
 
