@@ -19079,12 +19079,16 @@ function togglePreview(editor) {
 	}
 	// preview.innerHTML = editor.options.previewRender(editor.value(), preview);
 
-	var customEvent = new CustomEvent('phodit.editor.send.result', editor.value());
-	document.dispatchEvent(customEvent);
-
 	document.addEventListener('phodit.editor.get.result', function(event) {
+		console.log(event.detail);
 		preview.innerHTML = event.detail;
 	});
+
+	var customEvent = new CustomEvent('phodit.editor.send.result', {
+		detail: editor.value()
+	});
+
+	document.dispatchEvent(customEvent);
 
 	// Turn off side by side if needed
 	var sidebyside = cm.getWrapperElement().nextSibling;
