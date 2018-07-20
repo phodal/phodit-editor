@@ -1570,8 +1570,7 @@ SimpleMDE.prototype.render = function(el) {
 		extraKeys: keyMaps,
 		phoditSuggest: [{
 			mode: 'markdown',
-			startChar: '《',
-			endChar: '》'
+			startChar: '《'
 		}],
 		lineWrapping: (options.lineWrapping === false) ? false : true,
 		allowDropFileTypes: ["text/plain"],

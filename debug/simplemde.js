@@ -18194,13 +18194,6 @@ if (typeof module !== 'undefined') {
 })(function (CodeMirror) {
   'use strict';
 
-  function getLocalSuggest(cur, start, token, end) {
-    return [{
-        text: '![phodal](www.phodal.com)',
-        displayText: 'phodal'
-      }];
-  }
-
   CodeMirror.defineOption('phoditSuggest', [], function (cm, value, old) {
     cm.on('inputRead', function (cm, change) {
       var mode = cm.getModeAt(cm.getCursor());
@@ -18210,24 +18203,25 @@ if (typeof module !== 'undefined') {
           cm.showHint({
             completeSingle: false,
             hint: function (cm, options) {
-              var cur = cm.getCursor(),
-                token = cm.getTokenAt(cur);
-              var start = token.start + 1,
-                end = token.end;
+              return new Promise(function(accept) {
+                var cur = cm.getCursor(),
+                  token = cm.getTokenAt(cur);
+                var start = token.start + 1,
+                  end = token.end;
 
-              var textToken = cm.getTokenAt(cm.getCursor());
-              var text = textToken.state.streamSeen.string.split("《")[1];
-              var event1 = new CustomEvent("phodit.editor.suggest.get", {detail: text});
-              window.document.dispatchEvent(event1);
+                var textToken = cm.getTokenAt(cm.getCursor());
+                var text = textToken.state.streamSeen.string.split("《")[1];
+                var event1 = new CustomEvent("phodit.editor.suggest.get", {detail: text});
+                window.document.dispatchEvent(event1);
 
-              window.document.addEventListener("phodit.editor.suggest.receive", function(event){
-                console.log(event);
-                return {
-                  list: getLocalSuggest(cur, start, token, end),
-                  from: CodeMirror.Pos(cur.line, start),
-                  to: CodeMirror.Pos(cur.line, end)
-                };
-              });
+                window.document.addEventListener("phodit.editor.suggest.receive", function(event){
+                  return accept({
+                    list: JSON.parse(event.detail),
+                    from: CodeMirror.Pos(cur.line, start),
+                    to: CodeMirror.Pos(cur.line, end)
+                  });
+                });
+              })
             }
           });
         }
@@ -19855,8 +19849,7 @@ SimpleMDE.prototype.render = function(el) {
 		extraKeys: keyMaps,
 		phoditSuggest: [{
 			mode: 'markdown',
-			startChar: '《',
-			endChar: '》'
+			startChar: '《'
 		}],
 		lineWrapping: (options.lineWrapping === false) ? false : true,
 		allowDropFileTypes: ["text/plain"],
