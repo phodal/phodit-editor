@@ -1558,17 +1558,6 @@ SimpleMDE.prototype.render = function(el) {
 		mode.gitHubSpice = false;
 	}
 
-	var anyWord = CodeMirror.hint.anyword;
-	CodeMirror.hint.anyword = function(cm) {
-		var inner = anyWord(cm) || {
-			from: cm.getCursor(),
-			to: cm.getCursor(),
-			list: []
-		};
-		inner.list.push("codemirror", "docs", "are", "very", "unclear", "on", "this", "topic");
-		return inner;
-	};
-
 	CodeMirror.commands.autocomplete = function(cm) {
 		cm.showHint({
 			hint: CodeMirror.hint.anyword
