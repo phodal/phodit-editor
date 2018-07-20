@@ -1514,18 +1514,22 @@ SimpleMDE.prototype.render = function(el) {
 	keyMaps["Enter"] = "newlineAndIndentContinueMarkdownList";
 	keyMaps["Tab"] = "tabAndIndentMarkdownList";
 	keyMaps["Shift-Tab"] = "shiftTabAndUnindentMarkdownList";
-	keyMaps["Shift-,"] = function(cm) {
-		var event1 = new CustomEvent("phodit.editor.article.complete", {});
-		window.document.dispatchEvent(event1);
-		cm.on("change", function(event) {
-			console.log(event);
-			cm.showHint(); //满足自动触发自动联想功能
-		});
-	};
-	keyMaps["Shift-."] = function() {
-		var event1 = new CustomEvent("phodit.editor.article.complete", {});
-		window.document.dispatchEvent(event1);
-	};
+
+	// keyMaps["Shift-,"] = function(cm) {
+	// 	var event1 = new CustomEvent("phodit.editor.article.complete", {});
+	// 	window.document.dispatchEvent(event1);
+	// 	cm.on("change", function(event) {
+	// 		console.log(event);
+	// 		cm.showHint(); //满足自动触发自动联想功能
+	// 	});
+	// };
+
+	// keyMaps["Shift-."] = function() {
+	//   var event1 = new CustomEvent("phodit.editor.article.complete", {});
+	//   window.document.dispatchEvent(event1);
+	// };
+
+	keyMaps["Shift-,"] = "autocomplete";
 	keyMaps["Esc"] = function(cm) {
 		if(cm.getOption("fullScreen")) toggleFullScreen(self);
 	};
@@ -1553,6 +1557,23 @@ SimpleMDE.prototype.render = function(el) {
 		mode.name = "gfm";
 		mode.gitHubSpice = false;
 	}
+
+	var anyWord = CodeMirror.hint.anyword;
+	CodeMirror.hint.anyword = function(cm) {
+		var inner = anyWord(cm) || {
+			from: cm.getCursor(),
+			to: cm.getCursor(),
+			list: []
+		};
+		inner.list.push("codemirror", "docs", "are", "very", "unclear", "on", "this", "topic");
+		return inner;
+	};
+
+	CodeMirror.commands.autocomplete = function(cm) {
+		cm.showHint({
+			hint: CodeMirror.hint.anyword
+		});
+	};
 
 	this.codemirror = CodeMirror.fromTextArea(el, {
 		mode: mode,
