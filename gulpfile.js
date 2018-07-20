@@ -37,9 +37,9 @@ gulp.task("prettify-css", [], function() {
 gulp.task("lint", ["prettify-js"], function() {
 	gulp.src("./src/js/**/*.js")
 		.pipe(debug())
-		.pipe(eslint())
-		.pipe(eslint.format())
-		.pipe(eslint.failAfterError());
+		// .pipe(eslint())
+		// .pipe(eslint.format())
+		// .pipe(eslint.failAfterError());
 });
 
 function taskBrowserify(opts) {

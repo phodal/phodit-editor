@@ -18195,10 +18195,6 @@ if (typeof module !== 'undefined') {
   'use strict';
 
   function getLocalSuggest(cur, start, token, end) {
-    console.log(cur);
-    console.log(start);
-    console.log(token);
-    console.log(end);
     return [{
         text: '![phodal](www.phodal.com)',
         displayText: 'phodal'
@@ -18218,11 +18214,20 @@ if (typeof module !== 'undefined') {
                 token = cm.getTokenAt(cur);
               var start = token.start + 1,
                 end = token.end;
-              return {
-                list: getLocalSuggest(cur, start, token, end),
-                from: CodeMirror.Pos(cur.line, start),
-                to: CodeMirror.Pos(cur.line, end)
-              };
+
+              var textToken = cm.getTokenAt(cm.getCursor());
+              var text = textToken.state.streamSeen.string.split("《")[1];
+              var event1 = new CustomEvent("phodit.editor.suggest.get", {detail: text});
+              window.document.dispatchEvent(event1);
+
+              window.document.addEventListener("phodit.editor.suggest.receive", function(event){
+                console.log(event);
+                return {
+                  list: getLocalSuggest(cur, start, token, end),
+                  from: CodeMirror.Pos(cur.line, start),
+                  to: CodeMirror.Pos(cur.line, end)
+                };
+              });
             }
           });
         }
