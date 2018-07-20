@@ -18173,6 +18173,62 @@ if (typeof module !== 'undefined') {
 }
 }).call(this,require("buffer").Buffer,"/node_modules/typo-js")
 },{"buffer":3,"fs":2}],24:[function(require,module,exports){
+(function (mod) {
+  if (typeof exports === 'object' && typeof module === 'object') { // CommonJS
+    mod(
+      require('codemirror/lib/codemirror'),
+      require('codemirror/mode/markdown/markdown'),
+      require('codemirror/addon/hint/show-hint')
+    );
+  }
+  else if (typeof define === 'function' && define.amd) { // AMD
+    define([
+      'codemirror/lib/codemirror',
+      'codemirror/mode/markdown/markdown',
+      'codemirror/addon/hint/show-hint'
+    ], mod);
+  }
+  else { // Plain browser env
+    mod(CodeMirror);
+  }
+})(function (CodeMirror) {
+  'use strict';
+
+  function getLocalSuggest(cur, start, token, end) {
+    console.log(cur);
+    console.log(start);
+    console.log(token);
+    console.log(end);
+    return ['phodal']
+  }
+
+  CodeMirror.defineOption('phoditSuggest', [], function (cm, value, old) {
+    cm.on('inputRead', function (cm, change) {
+      var mode = cm.getModeAt(cm.getCursor());
+
+      for (var i = 0, len = value.length; i < len; i++) {
+        if (mode.name === value[i].mode && change.text[0] === value[i].startChar) {
+          cm.showHint({
+            completeSingle: false,
+            hint: function (cm, options) {
+              var cur = cm.getCursor(),
+                token = cm.getTokenAt(cur);
+              var start = token.start + 1,
+                end = token.end;
+              return {
+                list: getLocalSuggest(cur, start, token, end),
+                from: CodeMirror.Pos(cur.line, start),
+                to: CodeMirror.Pos(cur.line, end)
+              };
+            }
+          });
+        }
+      }
+    });
+  });
+});
+
+},{"codemirror/addon/hint/show-hint":11,"codemirror/lib/codemirror":16,"codemirror/mode/markdown/markdown":18}],25:[function(require,module,exports){
 // CodeMirror, copyright (c) by Marijn Haverbeke and others
 // Distributed under an MIT license: http://codemirror.net/LICENSE
 
@@ -18218,12 +18274,13 @@ CodeMirror.commands.shiftTabAndUnindentMarkdownList = function (cm) {
 	}
 };
 
-},{"codemirror":16}],25:[function(require,module,exports){
+},{"codemirror":16}],26:[function(require,module,exports){
 /*global require,module*/
 "use strict";
 var CodeMirror = require("codemirror");
 require("codemirror/addon/edit/continuelist.js");
 require("./codemirror/tablist");
+require("./codemirror/phodit-suggest.js");
 require("codemirror/addon/display/fullscreen.js");
 require("codemirror/mode/markdown/markdown.js");
 // require("codemirror/mode/javascript/javascript.js");
@@ -18256,7 +18313,7 @@ var bindings = {
 	"toggleCodeBlock": toggleCodeBlock,
 	"togglePreview": togglePreview,
 	"toggleStrikethrough": toggleStrikethrough,
-	"toggleHeading1": toggleHeading1,
+	"toggleHeadingg": toggleHeading1,
 	"toggleHeading2": toggleHeading2,
 	"toggleHeading3": toggleHeading3,
 	"cleanBlock": cleanBlock,
@@ -19750,7 +19807,6 @@ SimpleMDE.prototype.render = function(el) {
 	//   window.document.dispatchEvent(event1);
 	// };
 
-	keyMaps["Shift-,"] = "autocomplete";
 	keyMaps["Esc"] = function(cm) {
 		if(cm.getOption("fullScreen")) toggleFullScreen(self);
 	};
@@ -19779,12 +19835,6 @@ SimpleMDE.prototype.render = function(el) {
 		mode.gitHubSpice = false;
 	}
 
-	CodeMirror.commands.autocomplete = function(cm) {
-		cm.showHint({
-			hint: CodeMirror.hint.anyword
-		});
-	};
-
 	this.codemirror = CodeMirror.fromTextArea(el, {
 		mode: mode,
 		backdrop: backdrop,
@@ -19795,6 +19845,11 @@ SimpleMDE.prototype.render = function(el) {
 		lineNumbers: false,
 		autofocus: (options.autofocus === true) ? true : false,
 		extraKeys: keyMaps,
+		phoditSuggest: [{
+			mode: 'markdown',
+			startChar: '《',
+			endChar: '》'
+		}],
 		lineWrapping: (options.lineWrapping === false) ? false : true,
 		allowDropFileTypes: ["text/plain"],
 		searchbox: true,
@@ -20343,5 +20398,5 @@ SimpleMDE.prototype.toTextArea = function() {
 };
 
 module.exports = SimpleMDE;
-},{"./codemirror/tablist":24,"cm-searchbox":4,"codemirror":16,"codemirror-spell-checker":5,"codemirror/addon/display/fullscreen.js":7,"codemirror/addon/display/placeholder.js":8,"codemirror/addon/edit/continuelist.js":9,"codemirror/addon/hint/anyword-hint.js":10,"codemirror/addon/hint/show-hint.js":11,"codemirror/addon/mode/overlay.js":12,"codemirror/addon/search/search.js":13,"codemirror/addon/selection/mark-selection.js":15,"codemirror/mode/gfm/gfm.js":17,"codemirror/mode/markdown/markdown.js":18,"marked":22}]},{},[25])(25)
+},{"./codemirror/phodit-suggest.js":24,"./codemirror/tablist":25,"cm-searchbox":4,"codemirror":16,"codemirror-spell-checker":5,"codemirror/addon/display/fullscreen.js":7,"codemirror/addon/display/placeholder.js":8,"codemirror/addon/edit/continuelist.js":9,"codemirror/addon/hint/anyword-hint.js":10,"codemirror/addon/hint/show-hint.js":11,"codemirror/addon/mode/overlay.js":12,"codemirror/addon/search/search.js":13,"codemirror/addon/selection/mark-selection.js":15,"codemirror/mode/gfm/gfm.js":17,"codemirror/mode/markdown/markdown.js":18,"marked":22}]},{},[26])(26)
 });

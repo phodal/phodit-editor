@@ -3,6 +3,7 @@
 var CodeMirror = require("codemirror");
 require("codemirror/addon/edit/continuelist.js");
 require("./codemirror/tablist");
+require("./codemirror/phodit-suggest.js");
 require("codemirror/addon/display/fullscreen.js");
 require("codemirror/mode/markdown/markdown.js");
 // require("codemirror/mode/javascript/javascript.js");
@@ -35,7 +36,7 @@ var bindings = {
 	"toggleCodeBlock": toggleCodeBlock,
 	"togglePreview": togglePreview,
 	"toggleStrikethrough": toggleStrikethrough,
-	"toggleHeading1": toggleHeading1,
+	"toggleHeadingg": toggleHeading1,
 	"toggleHeading2": toggleHeading2,
 	"toggleHeading3": toggleHeading3,
 	"cleanBlock": cleanBlock,
@@ -1529,7 +1530,6 @@ SimpleMDE.prototype.render = function(el) {
 	//   window.document.dispatchEvent(event1);
 	// };
 
-	keyMaps["Shift-,"] = "autocomplete";
 	keyMaps["Esc"] = function(cm) {
 		if(cm.getOption("fullScreen")) toggleFullScreen(self);
 	};
@@ -1558,12 +1558,6 @@ SimpleMDE.prototype.render = function(el) {
 		mode.gitHubSpice = false;
 	}
 
-	CodeMirror.commands.autocomplete = function(cm) {
-		cm.showHint({
-			hint: CodeMirror.hint.anyword
-		});
-	};
-
 	this.codemirror = CodeMirror.fromTextArea(el, {
 		mode: mode,
 		backdrop: backdrop,
@@ -1574,6 +1568,11 @@ SimpleMDE.prototype.render = function(el) {
 		lineNumbers: false,
 		autofocus: (options.autofocus === true) ? true : false,
 		extraKeys: keyMaps,
+		phoditSuggest: [{
+			mode: 'markdown',
+			startChar: '《',
+			endChar: '》'
+		}],
 		lineWrapping: (options.lineWrapping === false) ? false : true,
 		allowDropFileTypes: ["text/plain"],
 		searchbox: true,
