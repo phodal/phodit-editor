@@ -19077,7 +19077,14 @@ function togglePreview(editor) {
 			toolbar_div.className += " disabled-for-preview";
 		}
 	}
-	preview.innerHTML = editor.options.previewRender(editor.value(), preview);
+	// preview.innerHTML = editor.options.previewRender(editor.value(), preview);
+
+	var customEvent = new CustomEvent('phodit.editor.send.result', editor.value());
+	document.dispatchEvent(customEvent);
+
+	document.addEventListener('phodit.editor.get.result', function(event) {
+		preview.innerHTML = event.detail;
+	});
 
 	// Turn off side by side if needed
 	var sidebyside = cm.getWrapperElement().nextSibling;
