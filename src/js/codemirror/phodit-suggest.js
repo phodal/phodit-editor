@@ -24,7 +24,10 @@
     console.log(start);
     console.log(token);
     console.log(end);
-    return ['phodal']
+    return [{
+        text: '![phodal](www.phodal.com)',
+        displayText: 'phodal'
+      }];
   }
 
   CodeMirror.defineOption('phoditSuggest', [], function (cm, value, old) {
