@@ -1558,6 +1558,42 @@ SimpleMDE.prototype.render = function(el) {
 		mode.gitHubSpice = false;
 	}
 
+	var comp = [
+		["here", "hither"],
+		["asynchronous", "nonsynchronous"],
+		["completion", "achievement", "conclusion", "culmination", "expirations"],
+		["hinting", "advive", "broach", "imply"],
+		["function", "action"],
+		["provide", "add", "bring", "give"],
+		["synonyms", "equivalents"],
+		["words", "token"],
+		["each", "every"],
+	];
+
+	keyMaps["Shift-."] = "autocomplete";
+
+	function synonyms(cm, option) {
+		return new Promise(function(accept) {
+			setTimeout(function() {
+				var cursor = cm.getCursor(),
+					line = cm.getLine(cursor.line)
+				var start = cursor.ch,
+					end = cursor.ch
+				while(start && /\w/.test(line.charAt(start - 1))) --start
+				while(end < line.length && /\w/.test(line.charAt(end))) ++end
+				var word = line.slice(start, end).toLowerCase()
+				for(var i = 0; i < comp.length; i++)
+					if(comp[i].indexOf(word) != -1)
+						return accept({
+							list: comp[i],
+							from: CodeMirror.Pos(cursor.line, start),
+							to: CodeMirror.Pos(cursor.line, end)
+						})
+				return accept(null)
+			}, 100)
+		})
+	}
+
 	this.codemirror = CodeMirror.fromTextArea(el, {
 		mode: mode,
 		backdrop: backdrop,
@@ -1568,11 +1604,9 @@ SimpleMDE.prototype.render = function(el) {
 		lineNumbers: false,
 		autofocus: (options.autofocus === true) ? true : false,
 		extraKeys: keyMaps,
-		phoditSuggest: [{
-			mode: 'markdown',
-			startChar: '《',
-			endChar: '》'
-		}],
+		hintOptions: {
+			hint: synonyms
+		},
 		lineWrapping: (options.lineWrapping === false) ? false : true,
 		allowDropFileTypes: ["text/plain"],
 		searchbox: true,
