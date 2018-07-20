@@ -1515,7 +1515,14 @@ SimpleMDE.prototype.render = function(el) {
 	keyMaps["Tab"] = "tabAndIndentMarkdownList";
 	keyMaps["Shift-Tab"] = "shiftTabAndUnindentMarkdownList";
 	keyMaps["Shift-,"] = function(cm) {
-		console.log(cm);
+		var event1 = new CustomEvent("phodit.editor.article.complete", {});
+		window.document.dispatchEvent(event1);
+		cm.on("change", function(event) {
+			console.log(event);
+			cm.showHint(); //满足自动触发自动联想功能
+		});
+	};
+	keyMaps["Shift-."] = function() {
 		var event1 = new CustomEvent("phodit.editor.article.complete", {});
 		window.document.dispatchEvent(event1);
 	};
