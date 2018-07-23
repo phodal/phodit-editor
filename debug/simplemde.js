@@ -20267,7 +20267,6 @@ SimpleMDE.prototype.value = function(val) {
 			var wrapper = cm.getWrapperElement();
 			var preview = wrapper.lastChild;
 			preview.innerHTML = this.options.previewRender(val, preview);
-			PR.prettyPrint();
 			// createPreview(preview, cm);
 		}
 		return this;
