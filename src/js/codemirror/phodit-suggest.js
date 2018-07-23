@@ -36,6 +36,14 @@
 
                 var textToken = cm.getTokenAt(cm.getCursor());
                 var text = textToken.state.streamSeen.string.split("《")[1];
+                if (text.length < 2) {
+                  return accept({
+                    list: [],
+                    from: CodeMirror.Pos(cur.line, start),
+                    to: CodeMirror.Pos(cur.line, end)
+                  });
+                }
+
                 var event1 = new CustomEvent("phodit.editor.suggest.get", {detail: text});
                 window.document.dispatchEvent(event1);
 
