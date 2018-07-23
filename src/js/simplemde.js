@@ -1667,6 +1667,8 @@ SimpleMDE.prototype.autosave = function() {
 			this.options.autosave.loaded = true;
 		}
 
+		var saveFileEvent = new CustomEvent("phodit.editor.save.file");
+		window.document.dispatchEvent(saveFileEvent, {});
 		localStorage.setItem("smde_" + this.options.autosave.uniqueId, simplemde.value());
 
 		var el = document.getElementById("autosaved");
