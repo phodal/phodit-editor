@@ -801,7 +801,6 @@ function togglePreview(editor) {
 	// preview.innerHTML = editor.options.previewRender(editor.value(), preview);
 
 	document.addEventListener('phodit.editor.get.result', function(event) {
-		console.log(event.detail);
 		preview.innerHTML = event.detail;
 	});
 
