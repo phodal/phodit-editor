@@ -19043,6 +19043,19 @@ function toggleSideBySide(editor) {
 }
 
 
+function createPreview(preview, editor) {
+	document.addEventListener('phodit.editor.get.result', function(event) {
+		preview.innerHTML = event.detail;
+		PR.prettyPrint();
+	});
+
+	var customEvent = new CustomEvent('phodit.editor.send.result', {
+		detail: editor.value()
+	});
+
+	document.dispatchEvent(customEvent);
+}
+
 /**
  * Preview action.
  */
@@ -19078,16 +19091,7 @@ function togglePreview(editor) {
 		}
 	}
 	// preview.innerHTML = editor.options.previewRender(editor.value(), preview);
-
-	document.addEventListener('phodit.editor.get.result', function(event) {
-		preview.innerHTML = event.detail;
-	});
-
-	var customEvent = new CustomEvent('phodit.editor.send.result', {
-		detail: editor.value()
-	});
-
-	document.dispatchEvent(customEvent);
+	createPreview(preview, editor);
 
 	// Turn off side by side if needed
 	var sidebyside = cm.getWrapperElement().nextSibling;
@@ -20253,6 +20257,8 @@ SimpleMDE.prototype.value = function(val) {
 			var wrapper = cm.getWrapperElement();
 			var preview = wrapper.lastChild;
 			preview.innerHTML = this.options.previewRender(val, preview);
+			PR.prettyPrint();
+			// createPreview(preview, cm);
 		}
 		return this;
 	}
