@@ -772,7 +772,6 @@ function toggleSideBySide(editor) {
 function createPreview(preview, editor) {
 	document.addEventListener('phodit.editor.get.result', function(event) {
 		preview.innerHTML = event.detail;
-		PR.prettyPrint();
 	});
 
 	var customEvent = new CustomEvent('phodit.editor.send.result', {
