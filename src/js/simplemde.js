@@ -6,12 +6,13 @@ require("./codemirror/tablist");
 require("./codemirror/phodit-suggest.js");
 
 require("codemirror/mode/markdown/markdown.js");
+require("codemirror/mode/textile/textile.js");
+require("codemirror/mode/cmake/cmake.js");
 require("codemirror/mode/gfm/gfm.js");
 require("codemirror/mode/javascript/javascript.js");
 require("codemirror/mode/css/css.js");
-require("codemirror/mode/java/java.js");
-require("codemirror/addon/mode/overlay.js");
 
+require("codemirror/addon/mode/overlay.js");
 require("codemirror/addon/display/fullscreen.js");
 require("codemirror/addon/display/placeholder.js");
 require("codemirror/addon/selection/mark-selection.js");
