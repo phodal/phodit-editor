@@ -724,6 +724,8 @@ function toggleSideBySide(editor) {
 		);
 		toolbarButton.className = toolbarButton.className.replace(/\s*active\s*/g, "");
 		wrapper.className = wrapper.className.replace(/\s*CodeMirror-sided\s*/g, " ");
+		var saveFileEvent = new CustomEvent("phodit.editor.showside");
+		window.document.dispatchEvent(saveFileEvent, {});
 	} else {
 		// When the preview button is clicked for the first time,
 		// give some time for the transition from editor.css to fire and the view to slide from right to left,
@@ -735,6 +737,7 @@ function toggleSideBySide(editor) {
 		toolbarButton.className += " active";
 		wrapper.className += " CodeMirror-sided";
 		useSideBySideListener = true;
+		var saveFileEvent = new CustomEvent("phodit.editor.hiddenside");
 	}
 
 	// Hide normal preview if active
@@ -1672,9 +1675,9 @@ SimpleMDE.prototype.autosave = function() {
 
 			this.options.autosave.loaded = true;
 		}
-		//
-		// var saveFileEvent = new CustomEvent("phodit.editor.save.file");
-		// window.document.dispatchEvent(saveFileEvent, {});
+
+		var saveFileEvent = new CustomEvent("phodit.editor.save.file");
+		window.document.dispatchEvent(saveFileEvent, {});
 		localStorage.setItem("smde_" + this.options.autosave.uniqueId, simplemde.value());
 
 		var el = document.getElementById("autosaved");
