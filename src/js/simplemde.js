@@ -4,13 +4,16 @@ var CodeMirror = require("codemirror");
 require("codemirror/addon/edit/continuelist.js");
 require("./codemirror/tablist");
 require("./codemirror/phodit-suggest.js");
-require("codemirror/addon/display/fullscreen.js");
+
 require("codemirror/mode/markdown/markdown.js");
-// require("codemirror/mode/javascript/javascript.js");
+require("codemirror/mode/gfm/gfm.js");
+require("codemirror/mode/javascript/javascript.js");
+require("codemirror/mode/css/css.js");
 require("codemirror/addon/mode/overlay.js");
+
+require("codemirror/addon/display/fullscreen.js");
 require("codemirror/addon/display/placeholder.js");
 require("codemirror/addon/selection/mark-selection.js");
-require("codemirror/mode/gfm/gfm.js");
 require("codemirror/addon/search/search.js");
 require("codemirror/addon/hint/show-hint.js");
 require("codemirror/addon/hint/anyword-hint.js");
