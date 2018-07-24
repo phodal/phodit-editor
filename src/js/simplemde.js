@@ -9,6 +9,7 @@ require("codemirror/mode/markdown/markdown.js");
 require("codemirror/mode/gfm/gfm.js");
 require("codemirror/mode/javascript/javascript.js");
 require("codemirror/mode/css/css.js");
+require("codemirror/mode/java/java.js");
 require("codemirror/addon/mode/overlay.js");
 
 require("codemirror/addon/display/fullscreen.js");
