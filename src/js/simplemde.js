@@ -750,7 +750,8 @@ function toggleSideBySide(editor) {
 	}
 
 	var sideBySideRenderingFunction = function() {
-		preview.innerHTML = editor.options.previewRender(editor.value(), preview);
+		// preview.innerHTML = editor.options.previewRender(editor.value(), preview);
+		createPreview(preview, editor);
 	};
 
 	if(!cm.sideBySideRenderingFunction) {
@@ -758,7 +759,8 @@ function toggleSideBySide(editor) {
 	}
 
 	if(useSideBySideListener) {
-		preview.innerHTML = editor.options.previewRender(editor.value(), preview);
+		// preview.innerHTML = editor.options.previewRender(editor.value(), preview);
+		createPreview(preview, editor);
 		cm.on("update", cm.sideBySideRenderingFunction);
 	} else {
 		cm.off("update", cm.sideBySideRenderingFunction);
@@ -1983,8 +1985,8 @@ SimpleMDE.prototype.value = function(val) {
 		if(this.isPreviewActive()) {
 			var wrapper = cm.getWrapperElement();
 			var preview = wrapper.lastChild;
-			preview.innerHTML = this.options.previewRender(val, preview);
-			// createPreview(preview, cm);
+			// preview.innerHTML = this.options.previewRender(val, preview);
+			createPreview(preview, cm);
 		}
 		return this;
 	}
