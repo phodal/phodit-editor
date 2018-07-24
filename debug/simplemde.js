@@ -21327,6 +21327,7 @@ function toggleSideBySide(editor) {
 		wrapper.className += " CodeMirror-sided";
 		useSideBySideListener = true;
 		var saveFileEvent = new CustomEvent("phodit.editor.hiddenside");
+		window.document.dispatchEvent(saveFileEvent, {});
 	}
 
 	// Hide normal preview if active
