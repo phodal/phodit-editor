@@ -1309,7 +1309,7 @@ var toolbarBuiltInButtons = {
 	"commit": {
 		name: "git",
 		action: gitCommit,
-		className: "fa fa-question-circle",
+		className: "fa fa-git",
 		title: "Git Commit",
 		default: true
 	},
