@@ -94,4 +94,8 @@ gulp.task("styles", ["prettify-css"], function() {
 		.pipe(gulp.dest("./dist/"));
 });
 
-gulp.task("default", ["scripts", "styles"]);
+gulp.task("phodit:copy", function() {
+  return gulp.src(['./dist/*']).pipe(gulp.dest('../dist/editor'));
+});
+
+gulp.task("default", ["scripts", "styles", "phodit:copy"]);
