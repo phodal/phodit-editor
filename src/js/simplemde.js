@@ -698,6 +698,14 @@ function openGuide() {
 	window.document.dispatchEvent(event);
 }
 
+/**
+ * openGuide
+ */
+function gitCommit() {
+	var event = new CustomEvent("phodit.editor.git.commit", {});
+	window.document.dispatchEvent(event);
+}
+
 
 /**
  * Redo action.
@@ -1296,6 +1304,13 @@ var toolbarBuiltInButtons = {
 		action: openGuide,
 		className: "fa fa-question-circle",
 		title: "Markdown Guide",
+		default: true
+	},
+	"commit": {
+		name: "git",
+		action: gitCommit,
+		className: "fa fa-question-circle",
+		title: "Git Commit",
 		default: true
 	},
 	"separator-5": {
