@@ -706,6 +706,14 @@ function gitCommit() {
 	window.document.dispatchEvent(event);
 }
 
+/**
+ * openGuide
+ */
+function showSlides() {
+	var event = new CustomEvent("phodit.editor.show.slides", {});
+	window.document.dispatchEvent(event);
+}
+
 
 /**
  * Redo action.
@@ -1311,6 +1319,13 @@ var toolbarBuiltInButtons = {
 		action: gitCommit,
 		className: "fa fa-git",
 		title: "Git Commit",
+		default: true
+	},
+	"slide": {
+		name: "slide",
+		action: showSlides,
+		className: "fa fa-desktop",
+		title: "Sho Slides",
 		default: true
 	},
 	"separator-5": {
