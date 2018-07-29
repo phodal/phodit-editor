@@ -21298,6 +21298,14 @@ function gitCommit() {
 /**
  * openGuide
  */
+function showWord() {
+	var event = new CustomEvent("phodit.editor.show.word", {});
+	window.document.dispatchEvent(event);
+}
+
+/**
+ * openGuide
+ */
 function showSlides() {
 	var event = new CustomEvent("phodit.editor.show.slides", {});
 	window.document.dispatchEvent(event);
@@ -21914,7 +21922,14 @@ var toolbarBuiltInButtons = {
 		name: "slide",
 		action: showSlides,
 		className: "fa fa-desktop",
-		title: "Sho Slides",
+		title: "Show Slides",
+		default: true
+	},
+	"word": {
+		name: "word",
+		action: showWord,
+		className: "fa fa-file-word",
+		title: "File Word",
 		default: true
 	},
 	"separator-5": {
