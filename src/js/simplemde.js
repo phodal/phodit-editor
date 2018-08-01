@@ -1339,7 +1339,7 @@ var toolbarBuiltInButtons = {
 	"word": {
 		name: "word",
 		action: showWord,
-		className: "fa fa-file-word",
+		className: "fa fa-file-word-o",
 		title: "File Word",
 		default: true
 	},
