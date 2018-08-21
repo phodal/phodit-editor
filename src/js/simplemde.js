@@ -1960,6 +1960,9 @@ SimpleMDE.prototype.createStatusbar = function(status) {
 				onUpdate = function(el) {
 					var pos = cm.getCursor();
 					el.innerHTML = pos.line + ":" + pos.ch;
+					var key = "line_" + localStorage.getItem('currentFile');
+					localStorage.setItem(key, pos);
+
 				};
 			} else if(name === "autosave") {
 				defaultValue = function(el) {
