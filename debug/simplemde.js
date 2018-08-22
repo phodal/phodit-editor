@@ -22551,7 +22551,7 @@ SimpleMDE.prototype.createStatusbar = function(status) {
 					el.innerHTML = pos.line + ":" + pos.ch;
 					var key = "line_" + localStorage.getItem('currentFile');
 					if(key) {
-						localStorage.setItem(key, pos);
+						localStorage.setItem(key, JSON.stringify(pos));
 					}
 
 				};
