@@ -1726,6 +1726,11 @@ SimpleMDE.prototype.autosave = function() {
 		window.document.dispatchEvent(saveFileEvent, {});
 		localStorage.setItem("smde_" + this.options.autosave.uniqueId, simplemde.value());
 
+		var key = "line_" + localStorage.getItem('currentFile');
+		if(key) {
+			localStorage.setItem(key, JSON.stringify(this.codemirror.getCursor()));
+		}
+
 		var el = document.getElementById("autosaved");
 		if(el != null && el != undefined && el != "") {
 			var d = new Date();
@@ -1960,10 +1965,6 @@ SimpleMDE.prototype.createStatusbar = function(status) {
 				onUpdate = function(el) {
 					var pos = cm.getCursor();
 					el.innerHTML = pos.line + ":" + pos.ch;
-					var key = "line_" + localStorage.getItem('currentFile');
-					if(key) {
-						localStorage.setItem(key, JSON.stringify(pos));
-					}
 
 				};
 			} else if(name === "autosave") {
