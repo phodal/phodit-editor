@@ -9,6 +9,9 @@
     "javascript",
     "wysiwyg"
   ],
+  "scripts": {
+    "build": "gulp scripts && gulp phodit:copy"
+  },
   "homepage": "https://github.com/sparksuite/simplemde-markdown-editor",
   "main": "./src/js/simplemde.js",
   "license": "MIT",
