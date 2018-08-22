@@ -10,7 +10,7 @@
     "wysiwyg"
   ],
   "scripts": {
-    "build": "gulp scripts && gulp phodit:copy"
+    "build": "gulp"
   },
   "homepage": "https://github.com/sparksuite/simplemde-markdown-editor",
   "main": "./src/js/simplemde.js",

@@ -598,15 +598,15 @@ li.CodeMirror-hint-active {
 }
 
 .editor-statusbar .lines:before {
-    content: '行: '
+    content: '行数: '
 }
 
 .editor-statusbar .words:before {
-    content: '字: '
+    content: '字数: '
 }
 
 .editor-statusbar .characters:before {
-    content: '字符: '
+    content: '字符数: '
 }
 
 .editor-preview {
