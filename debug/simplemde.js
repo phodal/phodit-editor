@@ -21932,6 +21932,13 @@ var toolbarBuiltInButtons = {
 		title: "File Word",
 		default: true
 	},
+	"copy": {
+		name: "word",
+		action: function() {},
+		className: "fa fa-wechat wechat-button",
+		title: "Copy to WeChat",
+		default: true
+	},
 	"separator-5": {
 		name: "separator-5"
 	},
