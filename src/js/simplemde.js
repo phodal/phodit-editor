@@ -839,10 +839,12 @@ function togglePreview(editor) {
 		// instead of just appearing.
 		setTimeout(function() {
 			preview.className += " editor-preview-active";
+			document.querySelector(".wechat-button").setAttribute("data-clipboard-target", ".editor-preview-side")
 		}, 1);
 		if(toolbar) {
 			toolbar.className += " active";
 			toolbar_div.className += " disabled-for-preview";
+			document.querySelector(".wechat-button").removeAttribute("data-clipboard-target")
 		}
 	}
 	// preview.innerHTML = editor.options.previewRender(editor.value(), preview);
