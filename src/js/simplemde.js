@@ -833,19 +833,19 @@ function togglePreview(editor) {
 			toolbar.className = toolbar.className.replace(/\s*active\s*/g, "");
 			toolbar_div.className = toolbar_div.className.replace(/\s*disabled-for-preview*/g, "");
 		}
+		document.querySelector(".wechat-button").setAttribute("data-clipboard-target", ".editor-preview-side")
 	} else {
 		// When the preview button is clicked for the first time,
 		// give some time for the transition from editor.css to fire and the view to slide from right to left,
 		// instead of just appearing.
 		setTimeout(function() {
 			preview.className += " editor-preview-active";
-			document.querySelector(".wechat-button").setAttribute("data-clipboard-target", ".editor-preview-side")
 		}, 1);
 		if(toolbar) {
 			toolbar.className += " active";
 			toolbar_div.className += " disabled-for-preview";
-			document.querySelector(".wechat-button").removeAttribute("data-clipboard-target")
 		}
+		document.querySelector(".wechat-button").removeAttribute("data-clipboard-target")
 	}
 	// preview.innerHTML = editor.options.previewRender(editor.value(), preview);
 	createPreview(preview, editor);
