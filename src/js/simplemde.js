@@ -750,6 +750,7 @@ function toggleSideBySide(editor) {
 		wrapper.className = wrapper.className.replace(/\s*CodeMirror-sided\s*/g, " ");
 		var saveFileEvent = new CustomEvent("phodit.editor.showside");
 		window.document.dispatchEvent(saveFileEvent, {});
+		document.querySelector(".wechat-button").setAttribute("data-clipboard-target", ".editor-preview-side")
 	} else {
 		// When the preview button is clicked for the first time,
 		// give some time for the transition from editor.css to fire and the view to slide from right to left,
@@ -763,6 +764,7 @@ function toggleSideBySide(editor) {
 		useSideBySideListener = true;
 		var saveFileEvent = new CustomEvent("phodit.editor.hiddenside");
 		window.document.dispatchEvent(saveFileEvent, {});
+		document.querySelector(".wechat-button").removeAttribute("data-clipboard-target")
 	}
 
 	// Hide normal preview if active
@@ -833,7 +835,6 @@ function togglePreview(editor) {
 			toolbar.className = toolbar.className.replace(/\s*active\s*/g, "");
 			toolbar_div.className = toolbar_div.className.replace(/\s*disabled-for-preview*/g, "");
 		}
-		document.querySelector(".wechat-button").setAttribute("data-clipboard-target", ".editor-preview-side")
 	} else {
 		// When the preview button is clicked for the first time,
 		// give some time for the transition from editor.css to fire and the view to slide from right to left,
@@ -845,7 +846,6 @@ function togglePreview(editor) {
 			toolbar.className += " active";
 			toolbar_div.className += " disabled-for-preview";
 		}
-		document.querySelector(".wechat-button").removeAttribute("data-clipboard-target")
 	}
 	// preview.innerHTML = editor.options.previewRender(editor.value(), preview);
 	createPreview(preview, editor);
