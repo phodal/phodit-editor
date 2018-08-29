@@ -22102,6 +22102,11 @@ function SimpleMDE(options) {
 	if(options.initialValue && (!this.options.autosave || this.options.autosave.foundSavedValue !== true)) {
 		this.value(options.initialValue);
 	}
+
+	var that = this;
+	document.addEventListener('phodit.editor.toggle.preview', function(event) {
+		toggleSideBySide(that);
+	});
 }
 
 /**
