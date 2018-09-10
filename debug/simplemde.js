@@ -21295,11 +21295,13 @@ function gitCommit() {
 	window.document.dispatchEvent(event);
 }
 
-/**
- * openGuide
- */
 function showWord() {
 	var event = new CustomEvent("phodit.editor.show.word", {});
+	window.document.dispatchEvent(event);
+}
+
+function showPdf() {
+	var event = new CustomEvent("phodit.editor.show.pdf", {});
 	window.document.dispatchEvent(event);
 }
 
@@ -21930,6 +21932,13 @@ var toolbarBuiltInButtons = {
 		action: showWord,
 		className: "fa fa-file-word-o",
 		title: "File Word",
+		default: true
+	},
+	"pdf": {
+		name: "pdf",
+		action: showPdf,
+		className: "fa fa-file-pdf-o",
+		title: "File PDF",
 		default: true
 	},
 	"copy": {
