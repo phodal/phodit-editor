@@ -19,6 +19,10 @@ require("codemirror/addon/selection/mark-selection.js");
 require("codemirror/addon/search/search.js");
 require("codemirror/addon/hint/show-hint.js");
 require("codemirror/addon/hint/anyword-hint.js");
+
+require("codemirror/addon/fold/foldcode.js");
+require("codemirror/addon/fold/foldgutter.js");
+require("codemirror/addon/fold/markdown-fold.js");
 require("cm-searchbox");
 var CodeMirrorSpellChecker = require("codemirror-spell-checker");
 var marked = require("marked");
@@ -1656,12 +1660,16 @@ SimpleMDE.prototype.render = function(el) {
 		indentUnit: (options.tabSize != undefined) ? options.tabSize : 2,
 		indentWithTabs: (options.indentWithTabs === false) ? false : true,
 		lineNumbers: false,
+		gutters: ["CodeMirror-foldgutter"],
 		autofocus: (options.autofocus === true) ? true : false,
 		extraKeys: keyMaps,
 		phoditSuggest: [{
 			mode: 'markdown',
 			startChar: '《'
 		}],
+		foldGutter: {
+			rangeFinder: new CodeMirror.fold.combine(CodeMirror.fold.markdown)
+		},
 		lineWrapping: (options.lineWrapping === false) ? false : true,
 		allowDropFileTypes: ["text/plain"],
 		searchbox: true,
