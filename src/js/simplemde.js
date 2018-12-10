@@ -1679,6 +1679,9 @@ SimpleMDE.prototype.render = function(el) {
 	});
 
 	this.codemirror.getScrollerElement().style.minHeight = options.minHeight;
+	this.codemirror.on('paste', function(cm, event) {
+		console.log(cm, event);
+	});
 
 	if(options.forceSync === true) {
 		var cm = this.codemirror;
