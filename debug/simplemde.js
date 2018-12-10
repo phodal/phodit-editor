@@ -22621,8 +22621,14 @@ SimpleMDE.prototype.render = function(el) {
 	});
 
 	this.codemirror.getScrollerElement().style.minHeight = options.minHeight;
-	this.codemirror.on('paste', function(cm, event) {
-		console.log(cm, event);
+	this.codemirror.on('change', function(cm, change) {
+		if(change.origin !== "paste" || change.text.length < 2) return;
+		cm.operation(function() {
+			for(var line = change.from.line + 1, end = CodeMirror.changeEnd(change).line; line <= end; ++line) {
+				// cm.indentLine(line, spaces);
+				console.log(line);
+			}
+		});
 	});
 
 	if(options.forceSync === true) {
