@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "cm-searchbox": "https://github.com/phodal-archive/cm-searchbox",
-    "codemirror": "*",
+    "codemirror": "5.42.2",
     "codemirror-spell-checker": "*",
     "marked": "*"
   },
