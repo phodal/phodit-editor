@@ -1,7 +1,5 @@
 /*global require,module*/
 "use strict";
-import {getLine} from "codemirror/src/line/utils_line";
-
 var CodeMirror = require("codemirror");
 require("codemirror/addon/edit/continuelist.js");
 require("./codemirror/tablist");
@@ -1685,8 +1683,8 @@ SimpleMDE.prototype.render = function(el) {
 		if(change.origin !== "paste" || change.text.length < 2) return;
 		cm.operation(function() {
 			for(var line = change.from.line + 1, end = CodeMirror.changeEnd(change).line; line <= end; ++line) {
-        cm.indentLine(line, "smart");
-      }
+				cm.indentLine(line, "smart");
+			}
 		});
 	});
 
