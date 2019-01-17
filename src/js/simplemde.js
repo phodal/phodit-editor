@@ -720,6 +720,11 @@ function showPdf() {
 	window.document.dispatchEvent(event);
 }
 
+function toggleTheme() {
+	var event = new CustomEvent("phodit.editor.theme.toggle", {});
+	window.document.dispatchEvent(event);
+}
+
 /**
  * openGuide
  */
@@ -1361,6 +1366,13 @@ var toolbarBuiltInButtons = {
 		action: function() {},
 		className: "fa fa-wechat wechat-button",
 		title: "Copy to WeChat",
+		default: true
+	},
+	"adjust": {
+		name: "theme",
+		action: toggleTheme,
+		className: "fa fa-adjust",
+		title: "changeThemes",
 		default: true
 	},
 	"separator-5": {
