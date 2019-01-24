@@ -22,19 +22,19 @@ var banner = ["/**",
 	" */",
 	""].join("\n");
 
-gulp.task("prettify-js", [], function() {
+gulp.task("prettify-js", function() {
 	return gulp.src("./src/js/simplemde.js")
 		.pipe(prettify({js: {brace_style: "collapse", indent_char: "\t", indent_size: 1, max_preserve_newlines: 3, space_before_conditional: false}}))
 		.pipe(gulp.dest("./src/js"));
 });
 
-gulp.task("prettify-css", [], function() {
+gulp.task("prettify-css", function() {
 	return gulp.src("./src/css/simplemde.css")
 		.pipe(prettify({css: {indentChar: "\t", indentSize: 1}}))
 		.pipe(gulp.dest("./src/css"));
 });
 
-gulp.task("lint", ["prettify-js"], function() {
+gulp.task("lint", gulp.series(["prettify-js"]), function() {
 	gulp.src("./src/js/**/*.js")
 		.pipe(debug())
 		// .pipe(eslint())
@@ -47,7 +47,7 @@ function taskBrowserify(opts) {
 		.bundle();
 }
 
-gulp.task("browserify:debug", ["lint"], function() {
+gulp.task("browserify:debug", gulp.series(["lint"]), function() {
 	return taskBrowserify({debug:true, standalone:"SimpleMDE"})
 		.pipe(source("simplemde.debug.js"))
 		.pipe(buffer())
@@ -55,7 +55,7 @@ gulp.task("browserify:debug", ["lint"], function() {
 		.pipe(gulp.dest("./debug/"));
 });
 
-gulp.task("browserify", ["lint"], function() {
+gulp.task("browserify", gulp.series(["lint"]), function() {
 	return taskBrowserify({standalone:"SimpleMDE"})
 		.pipe(source("simplemde.js"))
 		.pipe(buffer())
@@ -63,7 +63,7 @@ gulp.task("browserify", ["lint"], function() {
 		.pipe(gulp.dest("./debug/"));
 });
 
-gulp.task("scripts", ["browserify:debug", "browserify", "lint"], function() {
+gulp.task("scripts",  gulp.series(["browserify:debug", "browserify", "lint"]), function() {
 	var js_files = ["./debug/simplemde.js"];
 
 	return gulp.src(js_files)
@@ -74,7 +74,7 @@ gulp.task("scripts", ["browserify:debug", "browserify", "lint"], function() {
 		.pipe(gulp.dest("./dist/"));
 });
 
-gulp.task("styles", ["prettify-css"], function() {
+gulp.task("styles", gulp.series(["prettify-css"]), function() {
 	var css_files = [
 		"./node_modules/codemirror/lib/codemirror.css",
 		"./node_modules/codemirror/addon/hint/show-hint.css",
@@ -98,4 +98,4 @@ gulp.task("phodit:copy", function() {
   return gulp.src(['./dist/*']).pipe(gulp.dest('../dist/editor'));
 });
 
-gulp.task("default", ["scripts", "styles", "phodit:copy"]);
+gulp.task("default",  gulp.series(["scripts", "styles", "phodit:copy"]));
