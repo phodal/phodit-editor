@@ -13,6 +13,9 @@ require("codemirror/mode/javascript/javascript.js");
 require("codemirror/mode/css/css.js");
 require("codemirror/mode/xml/xml.js");
 require("codemirror/mode/yaml/yaml.js");
+require("codemirror/mode/rust/rust.js");
+require("codemirror/mode/go/go.js");
+require("codemirror/mode/groovy/groovy.js");
 
 require("codemirror/addon/mode/overlay.js");
 require("codemirror/addon/display/fullscreen.js");
