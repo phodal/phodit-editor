@@ -2168,7 +2168,7 @@ EasyMDE.prototype.render = function (el) {
   this.codemirror = CodeMirror.fromTextArea(el, {
     mode: mode,
     backdrop: backdrop,
-    theme: (options.theme != undefined) ? options.theme : 'easymde',
+    theme: 'easymde',
     tabSize: (options.tabSize != undefined) ? options.tabSize : 2,
     indentUnit: (options.tabSize != undefined) ? options.tabSize : 2,
     indentWithTabs: (options.indentWithTabs === false) ? false : true,
