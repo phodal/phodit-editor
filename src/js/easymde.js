@@ -6,7 +6,6 @@ require('codemirror/mode/stex/stex.js');
 require('codemirror/mode/markdown/markdown.js');
 
 
-
 // 6. Code highlighting-only modes
 require('codemirror/mode/clike/clike');
 require('codemirror/mode/clojure/clojure');

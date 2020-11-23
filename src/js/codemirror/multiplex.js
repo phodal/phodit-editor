@@ -226,7 +226,7 @@ const highlightingModes = {
     }
 
     return CodeMirror.multiplexingMode(
-      CodeMirror.getMode(config, 'spellchecker'), // Default mode
+      CodeMirror.getMode(config, 'markdown'), // Default mode
       ...codeModes,
       {
         open: /`{3}|~{3}/,
