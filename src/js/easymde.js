@@ -67,6 +67,7 @@ var marked = require('marked/lib/marked');
 
 require('./codemirror/tablist');
 require('./codemirror/phodit-suggest.js');
+require('./codemirror/render-image.js');
 
 require('codemirror/addon/mode/multiplex');
 require('./codemirror/multiplex.js');
@@ -2054,8 +2055,17 @@ EasyMDE.prototype.markdown = function (text) {
     // Set options
     marked.setOptions(markedOptions);
 
+
+    const renderer = new marked.Renderer();
+
+    const originalRendererImage = renderer.image.bind(renderer);
+    renderer.image = (href, title, text) => {
+      href = window.rootPath + href;
+      return originalRendererImage(href, title, text);
+    };
+
     // Convert the markdown to HTML
-    var htmlText = marked(text);
+    var htmlText = marked(text, { renderer });
 
     // Sanitize HTML
     if (this.options.renderingConfig && typeof this.options.renderingConfig.sanitizerFunction === 'function') {
@@ -2175,6 +2185,10 @@ EasyMDE.prototype.render = function (el) {
     lineNumbers: (options.lineNumbers === true) ? true : false,
     autofocus: (options.autofocus === true) ? true : false,
     extraKeys: keyMaps,
+    phoditSuggest: [{
+      mode: 'markdown',
+      startChar: '《'
+    }],
     lineWrapping: (options.lineWrapping === false) ? false : true,
     allowDropFileTypes: ['text/plain'],
     placeholder: options.placeholder || el.getAttribute('placeholder') || '',
