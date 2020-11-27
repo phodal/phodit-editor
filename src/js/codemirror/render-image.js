@@ -93,12 +93,12 @@
           }
         )
 
-        const maxPreviewWidth = '600px'
-        const maxPreviewHeight = '400px'
+        // const maxPreviewWidth = '600px'
+        // const maxPreviewHeight = '400px'
         // let width = (maxPreviewWidth) ? maxPreviewWidth + '%' : '100%'
         // let height = (maxPreviewHeight && maxPreviewHeight < 100) ? maxPreviewHeight + 'vh' : ''
-        img.style.maxWidth = '600px'
-        img.style.maxHeight = '400px'
+        img.style.maxWidth = 'auto'
+        img.style.maxHeight = '600px'
         img.style.cursor = 'default' // Nicer cursor
         img.alt = altText
         img.onerror = () => {
